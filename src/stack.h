@@ -15,7 +15,7 @@ typedef struct
     size_t size;
 } Stack;
 
-Stack stack_new();
+Stack stack_new(void);
 
 size_t stack_size(Stack *s);
 
