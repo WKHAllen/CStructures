@@ -33,20 +33,23 @@ int main(int argc, char **argv)
     assert(!stack_is_empty(&s));
     assert(*(float *)stack_peek(&s) == value3);
 
-    // test float pop
+    // test float pop and peek
     assert(*(float *)stack_pop(&s) == value3);
     assert(stack_size(&s) == 2);
     assert(!stack_is_empty(&s));
+    assert(*(char **)stack_peek(&s) == value2);
 
-    // test string pop
+    // test string pop and peek
     assert(*(char **)stack_pop(&s) == value2);
     assert(stack_size(&s) == 1);
     assert(!stack_is_empty(&s));
+    assert(*(int *)stack_peek(&s) == value1);
     
-    // test int pop
+    // test int pop and peek
     assert(*(int *)stack_pop(&s) == value1);
     assert(stack_size(&s) == 0);
     assert(stack_is_empty(&s));
+    assert(stack_peek(&s) == NULL);
 
     // test memory deallocation
     stack_push(&s, &value1, sizeof(value1));
