@@ -38,7 +38,8 @@ void *stack_peek(Stack *s)
 
 void *stack_pop(Stack *s)
 {
-    if (s->head != NULL) {
+    if (s->head != NULL)
+    {
         void *value = s->head->value;
         struct StackNode *head_next = s->head->next;
         free(s->head->value);
@@ -52,7 +53,8 @@ void *stack_pop(Stack *s)
 
 void stack_free(Stack *s)
 {
-    while (s->head != NULL) {
+    while (s->head != NULL)
+    {
         struct StackNode *head_next = s->head->next;
         free(s->head->value);
         free(s->head);
