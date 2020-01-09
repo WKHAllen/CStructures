@@ -20,18 +20,12 @@ int stack_is_empty(Stack *s)
     return s->size == 0;
 }
 
-void stack_push(Stack *s, void *value, size_t data_size)
+void stack_push(Stack *s, void *value)
 {
     struct StackNode *new_node = (struct StackNode *)malloc(sizeof(struct StackNode));
     if (new_node == NULL)
     {
         printf("Failed to allocate memory to new node\n");
-        exit(EXIT_FAILURE);
-    }
-    new_node->value = malloc(data_size);
-    if (new_node->value == NULL)
-    {
-        printf("Failed to allocate memory to new node value\n");
         exit(EXIT_FAILURE);
     }
     new_node->value = value;
@@ -53,7 +47,6 @@ void *stack_pop(Stack *s)
     {
         void *value = s->head->value;
         struct StackNode *head_next = s->head->next;
-        free(s->head->value);
         free(s->head);
         s->head = head_next;
         s->size--;
@@ -67,7 +60,6 @@ void stack_free(Stack *s)
     while (s->head != NULL)
     {
         struct StackNode *head_next = s->head->next;
-        free(s->head->value);
         free(s->head);
         s->head = head_next;
     }

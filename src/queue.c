@@ -21,18 +21,12 @@ int queue_is_empty(Queue *q)
     return q->size == 0;
 }
 
-void queue_push(Queue *q, void *value, size_t data_size)
+void queue_push(Queue *q, void *value)
 {
     struct QueueNode *new_node = (struct QueueNode *)malloc(sizeof(struct QueueNode));
     if (new_node == NULL)
     {
         printf("Failed to allocate memory to new node\n");
-        exit(EXIT_FAILURE);
-    }
-    new_node->value = malloc(data_size);
-    if (new_node->value == NULL)
-    {
-        printf("Failed to allocate memory to new node value\n");
         exit(EXIT_FAILURE);
     }
     new_node->value = value;
@@ -58,7 +52,6 @@ void *queue_pop(Queue *q)
     {
         void *value = q->head->value;
         struct QueueNode *head_next = q->head->next;
-        free(q->head->value);
         free(q->head);
         q->head = head_next;
         if (head_next == NULL)
@@ -74,7 +67,6 @@ void queue_free(Queue *q)
     while (q->head != NULL)
     {
         struct QueueNode *head_next = q->head->next;
-        free(q->head->value);
         free(q->head);
         q->head = head_next;
     }

@@ -22,7 +22,7 @@ size_t queue_size(Queue *q);
 
 int queue_is_empty(Queue *q);
 
-void queue_push(Queue *q, void *value, size_t data_size);
+void queue_push(Queue *q, void *value);
 
 void *queue_peek(Queue *q);
 

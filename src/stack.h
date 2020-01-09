@@ -21,7 +21,7 @@ size_t stack_size(Stack *s);
 
 int stack_is_empty(Stack *s);
 
-void stack_push(Stack *s, void *value, size_t data_size);
+void stack_push(Stack *s, void *value);
 
 void *stack_peek(Stack *s);
 

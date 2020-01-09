@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     // test int push and peek
     // [7]
     int value1 = 7;
-    queue_push(&q, &value1, sizeof(value1));
+    queue_push(&q, &value1);
     assert(queue_size(&q) == 1);
     assert(!queue_is_empty(&q));
     assert(*(int *)queue_peek(&q) == value1);
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     // test string push and peek
     // [7, "hello"]
     char *value2 = "hello";
-    queue_push(&q, &value2, sizeof(value2));
+    queue_push(&q, &value2);
     assert(queue_size(&q) == 2);
     assert(!queue_is_empty(&q));
     assert(*(int *)queue_peek(&q) == value1);
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     // test float push and peek
     // [7, "hello", 3.14]
     float value3 = 3.14;
-    queue_push(&q, &value3, sizeof(value3));
+    queue_push(&q, &value3);
     assert(queue_size(&q) == 3);
     assert(!queue_is_empty(&q));
     assert(*(int *)queue_peek(&q) == value1);
@@ -60,9 +60,9 @@ int main(int argc, char **argv)
     assert(queue_peek(&q) == NULL);
 
     // test memory deallocation
-    queue_push(&q, &value1, sizeof(value1));
-    queue_push(&q, &value2, sizeof(value2));
-    queue_push(&q, &value3, sizeof(value3));
+    queue_push(&q, &value1);
+    queue_push(&q, &value2);
+    queue_push(&q, &value3);
     assert(queue_size(&q) == 3);
     queue_free(&q);
     assert(queue_size(&q) == 0);
