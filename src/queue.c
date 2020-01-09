@@ -27,13 +27,9 @@ void queue_push(Queue *q, void *value, size_t data_size)
     new_node->value = value;
     new_node->next = NULL;
     if (q->tail != NULL)
-    {
         q->tail->next = new_node;
-    }
     else
-    {
         q->head = new_node;
-    }
     q->tail = new_node;
     q->size++;
 }
