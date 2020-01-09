@@ -1,4 +1,5 @@
 #include "stack.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 Stack stack_new(void)
@@ -22,7 +23,17 @@ int stack_is_empty(Stack *s)
 void stack_push(Stack *s, void *value, size_t data_size)
 {
     struct StackNode *new_node = (struct StackNode *)malloc(sizeof(struct StackNode));
+    if (new_node == NULL)
+    {
+        printf("Failed to allocate memory to new node\n");
+        exit(EXIT_FAILURE);
+    }
     new_node->value = malloc(data_size);
+    if (new_node->value == NULL)
+    {
+        printf("Failed to allocate memory to new node value\n");
+        exit(EXIT_FAILURE);
+    }
     new_node->value = value;
     new_node->next = s->head;
     s->head = new_node;

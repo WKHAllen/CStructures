@@ -1,4 +1,5 @@
 #include "queue.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 Queue queue_new(void)
@@ -23,7 +24,17 @@ int queue_is_empty(Queue *q)
 void queue_push(Queue *q, void *value, size_t data_size)
 {
     struct QueueNode *new_node = (struct QueueNode *)malloc(sizeof(struct QueueNode));
+    if (new_node == NULL)
+    {
+        printf("Failed to allocate memory to new node\n");
+        exit(EXIT_FAILURE);
+    }
     new_node->value = malloc(data_size);
+    if (new_node->value == NULL)
+    {
+        printf("Failed to allocate memory to new node value\n");
+        exit(EXIT_FAILURE);
+    }
     new_node->value = value;
     new_node->next = NULL;
     if (q->tail != NULL)
