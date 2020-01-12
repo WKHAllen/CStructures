@@ -112,6 +112,21 @@ void list_delete(List *l, int index)
     list_pop(l, index);
 }
 
+List list_slice(List *l, int index1, int index2)
+{
+    List lslice = list_new();
+    if (index1 < 0)
+        index1 += l->size;
+    if (index2 < 0)
+        index2 += l->size;
+    if (index1 < 0 || index1 > l->size || index2 < 0 || index2 > l->size)
+        return lslice;
+    while (index1++ < index2) {
+        list_append(&lslice, l->items[index1 - 1]);
+    }
+    return lslice;
+}
+
 int list_index(List *l, void *value)
 {
     for (int i = 0; i < l->size; i++)

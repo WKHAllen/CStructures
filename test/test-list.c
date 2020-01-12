@@ -180,6 +180,24 @@ int main(int argc, char **argv)
     assert(list_equal(&l, &l4));
     assert(list_equal(&l3, &l4));
 
+    // test slice
+    // ["hello", 1.618]
+    List l5 = list_slice(&l, 1, 3);
+    assert(list_size(&l5) == 2);
+    assert(!list_is_empty(&l5));
+    assert(*(char **)list_get(&l5, 0) == value2);
+    assert(*(float *)list_get(&l5, 1) == value6);
+    assert(!list_equal(&l, &l5));
+    List l6 = list_slice(&l, 0, list_size(&l));
+    assert(list_size(&l6) == 4);
+    assert(!list_is_empty(&l6));
+    assert(*(int *)list_get(&l3, 0) == value1);
+    assert(*(char **)list_get(&l3, 1) == value2);
+    assert(*(float *)list_get(&l3, 2) == value6);
+    assert(*(float *)list_get(&l3, 3) == value5);
+    assert(list_equal(&l, &l6));
+    assert(!list_equal(&l5, &l6));
+
     // test reverse
     // [2.718, 1.618, "hello", 7]
     list_reverse(&l);

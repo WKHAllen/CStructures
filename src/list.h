@@ -36,6 +36,8 @@ void *list_pop(List *l, int index);
 
 void list_delete(List *l, int index);
 
+List list_slice(List *l, int index1, int index2);
+
 int list_index(List *l, void *value);
 
 int list_count(List *l, void *value);
