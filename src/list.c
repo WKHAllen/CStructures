@@ -5,7 +5,7 @@
 List list_new(void)
 {
     List l;
-    l.items = malloc(sizeof(void *));
+    l.items = malloc(LIST_MIN_SIZE * sizeof(void *));
     l.size = 0;
     l.allocated = 1;
     return l;
