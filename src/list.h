@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+#define LIST_MIN_SIZE 1
+
 typedef struct
 {
     void **items;

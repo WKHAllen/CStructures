@@ -41,8 +41,8 @@ void list_resize_up(List *l)
 void list_resize_down(List *l)
 {
     size_t new_size = l->allocated / 2;
-    if (new_size < 1)
-        new_size = 1;
+    if (new_size < LIST_MIN_SIZE)
+        new_size = LIST_MIN_SIZE;
     list_resize(l, new_size);
 }
 
