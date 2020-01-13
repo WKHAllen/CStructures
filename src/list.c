@@ -101,7 +101,7 @@ void *list_pop(List *l, int index)
     void *value = l->items[index];
     for (int i = index + 1; i < l->size; i++)
         l->items[i - 1] = l->items[i];
-    if (l->size <= l->allocated / 2)
+    if (l->size <= l->allocated / 2 && l->allocated > LIST_MIN_SIZE)
         list_resize_down(l);
     l->size--;
     return value;
