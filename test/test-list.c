@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     assert(list_is_empty(&l));
     assert(sizeof(l.items) / sizeof(l.items[0]) == 1);
     assert(l.size == 0);
-    assert(l.allocated == 1);
+    assert(l.allocated == LIST_MIN_SIZE);
 
     // test int append and get
     // [7]
@@ -232,7 +232,7 @@ int main(int argc, char **argv)
     assert(list_size(&l) == 0);
     assert(list_is_empty(&l));
     assert(l.size == 0);
-    assert(l.allocated == 1);
+    assert(l.allocated == LIST_MIN_SIZE);
 
     // test foreach
     int intvals[] = {1, 3, 7, 9};
