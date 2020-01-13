@@ -6,6 +6,11 @@ List list_new(void)
 {
     List l;
     l.items = malloc(LIST_MIN_SIZE * sizeof(void *));
+    if (l.items == NULL)
+    {
+        printf("Failed to allocate memory while initializing\n");
+        exit(EXIT_FAILURE);
+    }
     l.size = 0;
     l.allocated = 1;
     return l;
