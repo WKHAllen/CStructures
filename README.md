@@ -23,3 +23,7 @@ Linked list type. Contains a reference to both the head and tail, which allows f
 ### [List](/src/list.h)
 
 List type. Based on Python's list object. Contains functions for just about everything one could possibly need. Size is doubled when more space is needed and halved when enough is left unused.
+
+### [HashTable](/src/hashtable.h)
+
+Hash table type. Based on Python's dictionary object. Contains functions for just about everything one could possibly need. Size is doubled when more space is needed and halved when enough is left unused. Linear probing is used to resolve collisions. Hashing is implemented by summing the binary data of a key.
