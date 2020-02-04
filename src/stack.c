@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Stack stack_new(void)
+#define EXPORT __declspec(dllexport)
+
+EXPORT Stack stack_new(void)
 {
     Stack s;
     s.size = 0;
@@ -10,17 +12,17 @@ Stack stack_new(void)
     return s;
 }
 
-size_t stack_size(Stack *s)
+EXPORT size_t stack_size(Stack *s)
 {
     return s->size;
 }
 
-int stack_is_empty(Stack *s)
+EXPORT int stack_is_empty(Stack *s)
 {
     return s->size == 0;
 }
 
-void stack_push(Stack *s, void *value)
+EXPORT void stack_push(Stack *s, void *value)
 {
     struct StackNode *new_node = (struct StackNode *)malloc(sizeof(struct StackNode));
     if (new_node == NULL)
@@ -34,14 +36,14 @@ void stack_push(Stack *s, void *value)
     s->size++;
 }
 
-void *stack_peek(Stack *s)
+EXPORT void *stack_peek(Stack *s)
 {
     if (s->head != NULL)
         return s->head->value;
     return NULL;
 }
 
-void *stack_pop(Stack *s)
+EXPORT void *stack_pop(Stack *s)
 {
     if (s->head != NULL)
     {
@@ -55,7 +57,7 @@ void *stack_pop(Stack *s)
     return NULL;
 }
 
-void stack_free(Stack *s)
+EXPORT void stack_free(Stack *s)
 {
     while (s->head != NULL)
     {

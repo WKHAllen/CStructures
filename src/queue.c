@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Queue queue_new(void)
+#define EXPORT __declspec(dllexport)
+
+EXPORT Queue queue_new(void)
 {
     Queue q;
     q.size = 0;
@@ -11,17 +13,17 @@ Queue queue_new(void)
     return q;
 }
 
-size_t queue_size(Queue *q)
+EXPORT size_t queue_size(Queue *q)
 {
     return q->size;
 }
 
-int queue_is_empty(Queue *q)
+EXPORT int queue_is_empty(Queue *q)
 {
     return q->size == 0;
 }
 
-void queue_push(Queue *q, void *value)
+EXPORT void queue_push(Queue *q, void *value)
 {
     struct QueueNode *new_node = (struct QueueNode *)malloc(sizeof(struct QueueNode));
     if (new_node == NULL)
@@ -39,14 +41,14 @@ void queue_push(Queue *q, void *value)
     q->size++;
 }
 
-void *queue_peek(Queue *q)
+EXPORT void *queue_peek(Queue *q)
 {
     if (q->head != NULL)
         return q->head->value;
     return NULL;
 }
 
-void *queue_pop(Queue *q)
+EXPORT void *queue_pop(Queue *q)
 {
     if (q->head != NULL)
     {
@@ -62,7 +64,7 @@ void *queue_pop(Queue *q)
     return NULL;
 }
 
-void queue_free(Queue *q)
+EXPORT void queue_free(Queue *q)
 {
     while (q->head != NULL)
     {

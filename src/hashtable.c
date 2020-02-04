@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-HashTable hashtable_new(void)
+#define EXPORT __declspec(dllexport)
+
+EXPORT HashTable hashtable_new(void)
 {
     HashTable ht;
     ht.size = 0;
@@ -18,7 +20,7 @@ HashTable hashtable_new(void)
     return ht;
 }
 
-int hashtable_hash(HashTable *ht, void *key, size_t key_size)
+EXPORT int hashtable_hash(HashTable *ht, void *key, size_t key_size)
 {
     int hashvalue = 0;
     for (int i = 0; i < sizeof(key_size); i++)
@@ -26,17 +28,17 @@ int hashtable_hash(HashTable *ht, void *key, size_t key_size)
     return hashvalue % ht->allocated;
 }
 
-size_t hashtable_size(HashTable *ht)
+EXPORT size_t hashtable_size(HashTable *ht)
 {
     return ht->size;
 }
 
-int hashtable_is_empty(HashTable *ht)
+EXPORT int hashtable_is_empty(HashTable *ht)
 {
     return ht->size == 0;
 }
 
-void **hashtable_keys(HashTable *ht)
+EXPORT void **hashtable_keys(HashTable *ht)
 {
     void **ht_keys = (void **)malloc(ht->size * sizeof(void *));
     int found = 0;
@@ -46,7 +48,7 @@ void **hashtable_keys(HashTable *ht)
     return ht_keys;
 }
 
-void **hashtable_values(HashTable *ht)
+EXPORT void **hashtable_values(HashTable *ht)
 {
     void **ht_values = malloc(ht->size * sizeof(void *));
     int found = 0;
@@ -56,7 +58,7 @@ void **hashtable_values(HashTable *ht)
     return ht_values;
 }
 
-void hashtable_resize(HashTable *ht, size_t new_size)
+EXPORT void hashtable_resize(HashTable *ht, size_t new_size)
 {
     void **ht_keys = malloc(ht->size * sizeof(void *));
     void **ht_values = malloc(ht->size * sizeof(void *));
@@ -89,13 +91,13 @@ void hashtable_resize(HashTable *ht, size_t new_size)
     free(ht_key_sizes);
 }
 
-void hashtable_resize_up(HashTable *ht)
+EXPORT void hashtable_resize_up(HashTable *ht)
 {
     size_t new_size = ht->allocated * 2;
     hashtable_resize(ht, new_size);
 }
 
-void hashtable_resize_down(HashTable *ht)
+EXPORT void hashtable_resize_down(HashTable *ht)
 {
     size_t new_size = ht->allocated / 2;
     if (new_size < HASHTABLE_MIN_SIZE)
@@ -103,7 +105,7 @@ void hashtable_resize_down(HashTable *ht)
     hashtable_resize(ht, new_size);
 }
 
-void *hashtable_get(HashTable *ht, void *key, size_t key_size)
+EXPORT void *hashtable_get(HashTable *ht, void *key, size_t key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -116,7 +118,7 @@ void *hashtable_get(HashTable *ht, void *key, size_t key_size)
     return NULL;
 }
 
-void hashtable_set(HashTable *ht, void *key, void *value, size_t key_size)
+EXPORT void hashtable_set(HashTable *ht, void *key, void *value, size_t key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -142,14 +144,14 @@ void hashtable_set(HashTable *ht, void *key, void *value, size_t key_size)
     hashtable_set(ht, key, value, key_size);
 }
 
-void hashtable_extend(HashTable *ht1, HashTable *ht2)
+EXPORT void hashtable_extend(HashTable *ht1, HashTable *ht2)
 {
     for (int i = 0; i < ht2->allocated; i++)
         if (ht2->items[i].is_allocated)
             hashtable_set(ht1, ht2->items[i].key, ht2->items[i].value, ht2->items[i].key_size);
 }
 
-void *hashtable_pop(HashTable *ht, void *key, size_t key_size)
+EXPORT void *hashtable_pop(HashTable *ht, void *key, size_t key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -168,12 +170,12 @@ void *hashtable_pop(HashTable *ht, void *key, size_t key_size)
     return NULL;
 }
 
-void hashtable_delete(HashTable *ht, void *key, size_t key_size)
+EXPORT void hashtable_delete(HashTable *ht, void *key, size_t key_size)
 {
     hashtable_pop(ht, key, key_size);
 }
 
-void *hashtable_key(HashTable *ht, void *value)
+EXPORT void *hashtable_key(HashTable *ht, void *value)
 {
     for (int i = 0; i < ht->allocated; i++)
         if (value == ht->items[i].value && ht->items[i].is_allocated == HASHTABLE_ALLOCATED)
@@ -181,7 +183,7 @@ void *hashtable_key(HashTable *ht, void *value)
     return NULL;
 }
 
-int hashtable_contains(HashTable *ht, void *key, size_t key_size)
+EXPORT int hashtable_contains(HashTable *ht, void *key, size_t key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -194,7 +196,7 @@ int hashtable_contains(HashTable *ht, void *key, size_t key_size)
     return 0;
 }
 
-int hashtable_count(HashTable *ht, void *value)
+EXPORT int hashtable_count(HashTable *ht, void *value)
 {
     int count = 0;
     for (int i = 0; i < ht->allocated; i++)
@@ -203,7 +205,7 @@ int hashtable_count(HashTable *ht, void *value)
     return count;
 }
 
-int hashtable_equal(HashTable *ht1, HashTable *ht2)
+EXPORT int hashtable_equal(HashTable *ht1, HashTable *ht2)
 {
     if (ht1->size != ht2->size)
         return 0;
@@ -213,7 +215,7 @@ int hashtable_equal(HashTable *ht1, HashTable *ht2)
     return 1;
 }
 
-void hashtable_clear(HashTable *ht)
+EXPORT void hashtable_clear(HashTable *ht)
 {
     ht->items = (HashTableItem *)realloc(ht->items, HASHTABLE_MIN_SIZE * sizeof(HashTableItem));
     ht->size = 0;
@@ -222,7 +224,7 @@ void hashtable_clear(HashTable *ht)
         ht->items[i].is_allocated = HASHTABLE_UNALLOCATED;
 }
 
-HashTable hashtable_copy(HashTable *ht)
+EXPORT HashTable hashtable_copy(HashTable *ht)
 {
     HashTable new_hashtable = hashtable_new();
     for (int i = 0; i < ht->allocated; i++)
@@ -231,14 +233,14 @@ HashTable hashtable_copy(HashTable *ht)
     return new_hashtable;
 }
 
-void hashtable_foreach(HashTable *ht, void (*fptr)(void *, void *, void *), void *args)
+EXPORT void hashtable_foreach(HashTable *ht, void (*fptr)(void *, void *, void *), void *args)
 {
     for (int i = 0; i < ht->allocated; i++)
         if (ht->items[i].is_allocated)
             (*fptr)(ht->items[i].key, ht->items[i].value, args);
 }
 
-void hashtable_free(HashTable *ht)
+EXPORT void hashtable_free(HashTable *ht)
 {
     free(ht->items);
     ht->size = 0;

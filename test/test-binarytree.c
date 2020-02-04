@@ -1,4 +1,4 @@
-#include "../src/binarytree.h"
+#include "../bin/include/binarytree.h"
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>

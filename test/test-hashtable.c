@@ -1,4 +1,4 @@
-#include "../src/hashtable.h"
+#include "../bin/include/hashtable.h"
 #include <stdio.h>
 #include <assert.h>
 

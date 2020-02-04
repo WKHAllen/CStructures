@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-LinkedList linkedlist_new(void)
+#define EXPORT __declspec(dllexport)
+
+EXPORT LinkedList linkedlist_new(void)
 {
     LinkedList ll;
     ll.size = 0;
@@ -11,17 +13,17 @@ LinkedList linkedlist_new(void)
     return ll;
 }
 
-size_t linkedlist_size(LinkedList *ll)
+EXPORT size_t linkedlist_size(LinkedList *ll)
 {
     return ll->size;
 }
 
-int linkedlist_is_empty(LinkedList *ll)
+EXPORT int linkedlist_is_empty(LinkedList *ll)
 {
     return ll->size == 0;
 }
 
-void *linkedlist_get(LinkedList *ll, int index)
+EXPORT void *linkedlist_get(LinkedList *ll, int index)
 {
     if (index < 0 || index >= ll->size)
         return NULL;
@@ -31,7 +33,7 @@ void *linkedlist_get(LinkedList *ll, int index)
     return current->value;
 }
 
-void linkedlist_set(LinkedList *ll, int index, void *value)
+EXPORT void linkedlist_set(LinkedList *ll, int index, void *value)
 {
     if (index < 0 || index >= ll->size)
         return;
@@ -41,7 +43,7 @@ void linkedlist_set(LinkedList *ll, int index, void *value)
     current->value = value;
 }
 
-void linkedlist_insert(LinkedList *ll, int index, void *value)
+EXPORT void linkedlist_insert(LinkedList *ll, int index, void *value)
 {
     if (index < 0 || index > ll->size)
         return;
@@ -76,12 +78,12 @@ void linkedlist_insert(LinkedList *ll, int index, void *value)
     ll->size++;
 }
 
-void linkedlist_append(LinkedList *ll, void *value)
+EXPORT void linkedlist_append(LinkedList *ll, void *value)
 {
     linkedlist_insert(ll, ll->size, value);
 }
 
-void *linkedlist_pop(LinkedList *ll, int index)
+EXPORT void *linkedlist_pop(LinkedList *ll, int index)
 {
     if (index < 0 || index >= ll->size)
         return NULL;
@@ -112,18 +114,18 @@ void *linkedlist_pop(LinkedList *ll, int index)
     }
 }
 
-void linkedlist_remove(LinkedList *ll, int index)
+EXPORT void linkedlist_remove(LinkedList *ll, int index)
 {
     linkedlist_pop(ll, index);
 }
 
-void linkedlist_clear(LinkedList *ll)
+EXPORT void linkedlist_clear(LinkedList *ll)
 {
     while (!linkedlist_is_empty(ll))
         linkedlist_pop(ll, 0);
 }
 
-void linkedlist_foreach(LinkedList *ll, void (*fptr)(void *, void *), void *args)
+EXPORT void linkedlist_foreach(LinkedList *ll, void (*fptr)(void *, void *), void *args)
 {
     struct LinkedListNode *current = ll->head;
     while (current != NULL)
@@ -133,7 +135,7 @@ void linkedlist_foreach(LinkedList *ll, void (*fptr)(void *, void *), void *args
     }
 }
 
-void linkedlist_free(LinkedList *ll)
+EXPORT void linkedlist_free(LinkedList *ll)
 {
     while (ll->head != NULL)
     {

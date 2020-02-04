@@ -1,4 +1,4 @@
-#include "../src/queue.h"
+#include "../bin/include/queue.h"
 #include <stdio.h>
 #include <assert.h>
 
