@@ -1,26 +1,15 @@
 #include "hashtable.h"
-#include <stdio.h>
+#include "defs.h"
 #include <stdlib.h>
 
-#ifdef _WIN32
-    #define EXPORT __declspec(dllexport)
-#else
-    #define EXPORT __attribute__((visibility("default")))
-#endif
-
-EXPORT HashTable hashtable_new(void)
+EXPORT HashTable *hashtable_new(void)
 {
-    HashTable ht;
-    ht.size = 0;
-    ht.allocated = HASHTABLE_MIN_SIZE;
-    ht.items = (HashTableItem *)malloc(HASHTABLE_MIN_SIZE * sizeof(HashTableItem));
-    if (ht.items == NULL)
-    {
-        printf("Failed to allocate memory while initializing\n");
-        exit(EXIT_FAILURE);
-    }
-    for (int i = 0; i < ht.allocated; i++)
-        ht.items[i].is_allocated = HASHTABLE_UNALLOCATED;
+    HashTable *ht = malloc(sizeof(*ht));
+    ht->size = 0;
+    ht->allocated = HASHTABLE_MIN_SIZE;
+    ht->items = (HashTableItem *)malloc(HASHTABLE_MIN_SIZE * sizeof(HashTableItem));
+    for (int i = 0; i < ht->allocated; i++)
+        ht->items[i].is_allocated = HASHTABLE_UNALLOCATED;
     return ht;
 }
 
@@ -79,11 +68,6 @@ EXPORT void hashtable_resize(HashTable *ht, size_t new_size)
         }
     }
     ht->items = (HashTableItem *)realloc(ht->items, new_size * sizeof(HashTableItem));
-    if (ht->items == NULL)
-    {
-        printf("Failed to reallocate memory while resizing\n");
-        exit(EXIT_FAILURE);
-    }
     ht->allocated = new_size;
     ht->size = 0;
     for (int i = 0; i < ht->allocated; i++)
@@ -228,12 +212,12 @@ EXPORT void hashtable_clear(HashTable *ht)
         ht->items[i].is_allocated = HASHTABLE_UNALLOCATED;
 }
 
-EXPORT HashTable hashtable_copy(HashTable *ht)
+EXPORT HashTable *hashtable_copy(HashTable *ht)
 {
-    HashTable new_hashtable = hashtable_new();
+    HashTable *new_hashtable = hashtable_new();
     for (int i = 0; i < ht->allocated; i++)
         if (ht->items[i].is_allocated == HASHTABLE_ALLOCATED)
-            hashtable_set(&new_hashtable, ht->items[i].key, ht->items[i].value, ht->items[i].key_size);
+            hashtable_set(new_hashtable, ht->items[i].key, ht->items[i].value, ht->items[i].key_size);
     return new_hashtable;
 }
 
@@ -247,6 +231,5 @@ EXPORT void hashtable_foreach(HashTable *ht, void (*fptr)(void *, void *, void *
 EXPORT void hashtable_free(HashTable *ht)
 {
     free(ht->items);
-    ht->size = 0;
-    ht->allocated = 0;
+    free(ht);
 }

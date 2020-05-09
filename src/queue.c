@@ -1,19 +1,13 @@
 #include "queue.h"
-#include <stdio.h>
+#include "defs.h"
 #include <stdlib.h>
 
-#ifdef _WIN32
-    #define EXPORT __declspec(dllexport)
-#else
-    #define EXPORT __attribute__((visibility("default")))
-#endif
-
-EXPORT Queue queue_new(void)
+EXPORT Queue *queue_new(void)
 {
-    Queue q;
-    q.size = 0;
-    q.head = NULL;
-    q.tail = NULL;
+    Queue *q = malloc(sizeof(*q));
+    q->size = 0;
+    q->head = NULL;
+    q->tail = NULL;
     return q;
 }
 
@@ -30,11 +24,6 @@ EXPORT int queue_is_empty(Queue *q)
 EXPORT void queue_push(Queue *q, void *value)
 {
     struct QueueNode *new_node = (struct QueueNode *)malloc(sizeof(struct QueueNode));
-    if (new_node == NULL)
-    {
-        printf("Failed to allocate memory to new node\n");
-        exit(EXIT_FAILURE);
-    }
     new_node->value = value;
     new_node->next = NULL;
     if (q->tail != NULL)
@@ -76,6 +65,5 @@ EXPORT void queue_free(Queue *q)
         free(q->head);
         q->head = head_next;
     }
-    q->tail = NULL;
-    q->size = 0;
+    free(q);
 }

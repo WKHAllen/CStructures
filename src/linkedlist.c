@@ -1,19 +1,13 @@
 #include "linkedlist.h"
-#include <stdio.h>
+#include "defs.h"
 #include <stdlib.h>
 
-#ifdef _WIN32
-    #define EXPORT __declspec(dllexport)
-#else
-    #define EXPORT __attribute__((visibility("default")))
-#endif
-
-EXPORT LinkedList linkedlist_new(void)
+EXPORT LinkedList *linkedlist_new(void)
 {
-    LinkedList ll;
-    ll.size = 0;
-    ll.head = NULL;
-    ll.tail = NULL;
+    LinkedList *ll = malloc(sizeof(*ll));
+    ll->size = 0;
+    ll->head = NULL;
+    ll->tail = NULL;
     return ll;
 }
 
@@ -52,11 +46,6 @@ EXPORT void linkedlist_insert(LinkedList *ll, int index, void *value)
     if (index < 0 || index > ll->size)
         return;
     struct LinkedListNode *new_node = (struct LinkedListNode *)malloc(sizeof(struct LinkedListNode));
-    if (new_node == NULL)
-    {
-        printf("Failed to allocate memory to new node\n");
-        exit(EXIT_FAILURE);
-    }
     new_node->value = value;
     if (index == 0)
     {
@@ -147,6 +136,5 @@ EXPORT void linkedlist_free(LinkedList *ll)
         free(ll->head);
         ll->head = head_next;
     }
-    ll->tail = NULL;
-    ll->size = 0;
+    free(ll);
 }

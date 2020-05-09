@@ -9,14 +9,14 @@ struct QueueNode
     struct QueueNode *next;
 };
 
-typedef struct
+typedef struct _Queue
 {
     struct QueueNode *head;
     struct QueueNode *tail;
     size_t size;
 } Queue;
 
-Queue queue_new(void);
+Queue *queue_new(void);
 
 size_t queue_size(Queue *q);
 

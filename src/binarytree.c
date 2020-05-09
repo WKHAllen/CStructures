@@ -1,20 +1,14 @@
 #include "binarytree.h"
-#include <stdio.h>
+#include "defs.h"
 #include <stdlib.h>
 
-#ifdef _WIN32
-    #define EXPORT __declspec(dllexport)
-#else
-    #define EXPORT __attribute__((visibility("default")))
-#endif
-
-EXPORT struct BinaryTree binarytree_new(void)
+EXPORT struct BinaryTree *binarytree_new(void)
 {
-    struct BinaryTree bt;
-    bt.value = NULL;
-    bt.left = NULL;
-    bt.right = NULL;
-    bt.parent = NULL;
+    struct BinaryTree *bt = malloc(sizeof(*bt));
+    bt->value = NULL;
+    bt->left = NULL;
+    bt->right = NULL;
+    bt->parent = NULL;
     return bt;
 }
 
@@ -49,8 +43,8 @@ EXPORT void binarytree_set_left(struct BinaryTree *bt, void *value)
 {
     if (bt->left == NULL)
     {
-        struct BinaryTree bt_left = binarytree_new();
-        binarytree_set_left_node(bt, &bt_left);
+        struct BinaryTree *bt_left = binarytree_new();
+        binarytree_set_left_node(bt, bt_left);
     }
     bt->left->value = value;
 }
@@ -102,8 +96,8 @@ EXPORT void binarytree_set_right(struct BinaryTree *bt, void *value)
 {
     if (bt->right == NULL)
     {
-        struct BinaryTree bt_right = binarytree_new();
-        binarytree_set_right_node(bt, &bt_right);
+        struct BinaryTree *bt_right = binarytree_new();
+        binarytree_set_right_node(bt, bt_right);
     }
     bt->right->value = value;
 }
@@ -162,4 +156,9 @@ EXPORT void binarytree_clear(struct BinaryTree *bt)
     bt->left = NULL;
     bt->right = NULL;
     bt->parent = NULL;
+}
+
+EXPORT void binarytree_free(struct BinaryTree *bt)
+{
+    free(bt);
 }

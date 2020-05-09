@@ -1,18 +1,12 @@
 #include "stack.h"
-#include <stdio.h>
+#include "defs.h"
 #include <stdlib.h>
 
-#ifdef _WIN32
-    #define EXPORT __declspec(dllexport)
-#else
-    #define EXPORT __attribute__((visibility("default")))
-#endif
-
-EXPORT Stack stack_new(void)
+EXPORT Stack *stack_new(void)
 {
-    Stack s;
-    s.size = 0;
-    s.head = NULL;
+    Stack *s = malloc(sizeof(*s));
+    s->size = 0;
+    s->head = NULL;
     return s;
 }
 
@@ -29,11 +23,6 @@ EXPORT int stack_is_empty(Stack *s)
 EXPORT void stack_push(Stack *s, void *value)
 {
     struct StackNode *new_node = (struct StackNode *)malloc(sizeof(struct StackNode));
-    if (new_node == NULL)
-    {
-        printf("Failed to allocate memory to new node\n");
-        exit(EXIT_FAILURE);
-    }
     new_node->value = value;
     new_node->next = s->head;
     s->head = new_node;
@@ -69,5 +58,5 @@ EXPORT void stack_free(Stack *s)
         free(s->head);
         s->head = head_next;
     }
-    s->size = 0;
+    free(s);
 }

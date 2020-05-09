@@ -1,24 +1,13 @@
 #include "list.h"
-#include <stdio.h>
+#include "defs.h"
 #include <stdlib.h>
 
-#ifdef _WIN32
-    #define EXPORT __declspec(dllexport)
-#else
-    #define EXPORT __attribute__((visibility("default")))
-#endif
-
-EXPORT List list_new(void)
+EXPORT List *list_new(void)
 {
-    List l;
-    l.items = malloc(LIST_MIN_SIZE * sizeof(void *));
-    if (l.items == NULL)
-    {
-        printf("Failed to allocate memory while initializing\n");
-        exit(EXIT_FAILURE);
-    }
-    l.size = 0;
-    l.allocated = 1;
+    List *l = malloc(sizeof(*l));
+    l->items = malloc(LIST_MIN_SIZE * sizeof(void *));
+    l->size = 0;
+    l->allocated = 1;
     return l;
 }
 
@@ -35,11 +24,6 @@ EXPORT int list_is_empty(List *l)
 EXPORT void list_resize(List *l, size_t new_size)
 {
     l->items = realloc(l->items, new_size * sizeof(void *));
-    if (l->items == NULL)
-    {
-        printf("Failed to reallocate memory while resizing\n");
-        exit(EXIT_FAILURE);
-    }
     l->allocated = new_size;
 }
 
@@ -123,9 +107,9 @@ EXPORT void list_delete(List *l, int index)
     list_pop(l, index);
 }
 
-EXPORT List list_slice(List *l, int index1, int index2)
+EXPORT List *list_slice(List *l, int index1, int index2)
 {
-    List lslice = list_new();
+    List *lslice = list_new();
     if (index1 < 0)
         index1 += l->size;
     if (index2 < 0)
@@ -133,7 +117,7 @@ EXPORT List list_slice(List *l, int index1, int index2)
     if (index1 < 0 || index1 > l->size || index2 < 0 || index2 > l->size)
         return lslice;
     while (index1++ < index2) {
-        list_append(&lslice, l->items[index1 - 1]);
+        list_append(lslice, l->items[index1 - 1]);
     }
     return lslice;
 }
@@ -200,11 +184,11 @@ EXPORT void list_clear(List *l)
     l->allocated = 1;
 }
 
-EXPORT List list_copy(List *l)
+EXPORT List *list_copy(List *l)
 {
-    List new_list = list_new();
+    List *new_list = list_new();
     for (int i = 0; i < l->size; i++)
-        list_append(&new_list, l->items[i]);
+        list_append(new_list, l->items[i]);
     return new_list;
 }
 
@@ -228,6 +212,5 @@ EXPORT void list_foreach(List *l, void (*fptr)(void *, void *), void *args)
 EXPORT void list_free(List *l)
 {
     free(l->items);
-    l->size = 0;
-    l->allocated = 0;
+    free(l);
 }

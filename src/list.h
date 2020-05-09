@@ -5,14 +5,14 @@
 
 #define LIST_MIN_SIZE 1
 
-typedef struct
+typedef struct _List
 {
     void **items;
     size_t size;
     size_t allocated;
 } List;
 
-List list_new(void);
+List *list_new(void);
 
 size_t list_size(List *l);
 
@@ -38,7 +38,7 @@ void *list_pop(List *l, int index);
 
 void list_delete(List *l, int index);
 
-List list_slice(List *l, int index1, int index2);
+List *list_slice(List *l, int index1, int index2);
 
 int list_index(List *l, void *value);
 
@@ -56,7 +56,7 @@ int list_equal(List *l1, List *l2);
 
 void list_clear(List *l);
 
-List list_copy(List *l);
+List *list_copy(List *l);
 
 void list_reverse(List *l);
 

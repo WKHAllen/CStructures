@@ -3,11 +3,11 @@
 
 #include <stdlib.h>
 
-#define HASHTABLE_MIN_SIZE 16
-#define HASHTABLE_UNALLOCATED 0
-#define HASHTABLE_ALLOCATED 1
+#define HASHTABLE_MIN_SIZE    16
+#define HASHTABLE_UNALLOCATED  0
+#define HASHTABLE_ALLOCATED    1
 
-typedef struct
+typedef struct _HashTableItem
 {
     void *key;
     void *value;
@@ -15,14 +15,14 @@ typedef struct
     size_t key_size;
 } HashTableItem;
 
-typedef struct
+typedef struct _HashTable
 {
     HashTableItem *items;
     size_t size;
     size_t allocated;
 } HashTable;
 
-HashTable hashtable_new(void);
+HashTable *hashtable_new(void);
 
 int hashtable_hash(HashTable *ht, void *key, size_t key_size);
 
@@ -60,7 +60,7 @@ int hashtable_equal(HashTable *ht1, HashTable *ht2);
 
 void hashtable_clear(HashTable *ht);
 
-HashTable hashtable_copy(HashTable *ht);
+HashTable *hashtable_copy(HashTable *ht);
 
 void hashtable_foreach(HashTable *ht, void (*fptr)(void *, void *, void *), void *args);
 

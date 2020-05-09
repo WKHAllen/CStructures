@@ -11,7 +11,7 @@ struct BinaryTree
     struct BinaryTree *parent;
 };
 
-struct BinaryTree binarytree_new(void);
+struct BinaryTree *binarytree_new(void);
 
 void *binarytree_get_value(struct BinaryTree *bt);
 
@@ -54,5 +54,7 @@ void binarytree_set_parent(struct BinaryTree *bt, void *value);
 int binarytree_is_root(struct BinaryTree *bt);
 
 void binarytree_clear(struct BinaryTree *bt);
+
+void binarytree_free(struct BinaryTree *bt);
 
 #endif /* _BINARYTREE_H_ */

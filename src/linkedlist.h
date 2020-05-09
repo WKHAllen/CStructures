@@ -9,14 +9,14 @@ struct LinkedListNode
     struct LinkedListNode *next;
 };
 
-typedef struct
+typedef struct _LinkedList
 {
     struct LinkedListNode *head;
     struct LinkedListNode *tail;
     size_t size;
 } LinkedList;
 
-LinkedList linkedlist_new(void);
+LinkedList *linkedlist_new(void);
 
 size_t linkedlist_size(LinkedList *ll);
 

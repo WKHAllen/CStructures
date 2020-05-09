@@ -9,13 +9,13 @@ struct StackNode
     struct StackNode *next;
 };
 
-typedef struct
+typedef struct _Stack
 {
     struct StackNode *head;
     size_t size;
 } Stack;
 
-Stack stack_new(void);
+Stack *stack_new(void);
 
 size_t stack_size(Stack *s);
 
