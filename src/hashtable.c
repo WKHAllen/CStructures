@@ -4,7 +4,7 @@
 
 EXPORT HashTable *hashtable_new(void)
 {
-    HashTable *ht = malloc(sizeof(*ht));
+    HashTable *ht = malloc(sizeof(HashTable));
     ht->size = 0;
     ht->allocated = HASHTABLE_MIN_SIZE;
     ht->items = (HashTableItem *)malloc(HASHTABLE_MIN_SIZE * sizeof(HashTableItem));

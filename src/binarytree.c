@@ -4,7 +4,7 @@
 
 EXPORT struct BinaryTree *binarytree_new(void)
 {
-    struct BinaryTree *bt = malloc(sizeof(*bt));
+    struct BinaryTree *bt = malloc(sizeof(struct BinaryTree));
     bt->value = NULL;
     bt->left = NULL;
     bt->right = NULL;

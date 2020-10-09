@@ -4,7 +4,7 @@
 
 EXPORT Stack *stack_new(void)
 {
-    Stack *s = malloc(sizeof(*s));
+    Stack *s = malloc(sizeof(Stack));
     s->size = 0;
     s->head = NULL;
     return s;

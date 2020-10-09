@@ -4,7 +4,7 @@
 
 EXPORT LinkedList *linkedlist_new(void)
 {
-    LinkedList *ll = malloc(sizeof(*ll));
+    LinkedList *ll = malloc(sizeof(LinkedList));
     ll->size = 0;
     ll->head = NULL;
     ll->tail = NULL;

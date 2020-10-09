@@ -5,7 +5,7 @@
 
 EXPORT String *string_new(void)
 {
-	String *s = malloc(sizeof(*s));
+	String *s = malloc(sizeof(String));
 	s->value = strdup("");
 	s->length = 0;
 	return s;
@@ -13,7 +13,7 @@ EXPORT String *string_new(void)
 
 EXPORT String *string_from(char *string)
 {
-	String *s = malloc(sizeof(*s));
+	String *s = malloc(sizeof(String));
 	s->value = strdup(string);
 	s->length = strlen(string);
 	return s;
@@ -21,7 +21,7 @@ EXPORT String *string_from(char *string)
 
 EXPORT String *string_from_char(char chr)
 {
-	String *s = malloc(sizeof(*s));
+	String *s = malloc(sizeof(String));
 	s->value = strdup(&chr);
 	s->length = 1;
 	return s;

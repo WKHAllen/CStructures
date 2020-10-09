@@ -4,7 +4,7 @@
 
 EXPORT List *list_new(void)
 {
-    List *l = malloc(sizeof(*l));
+    List *l = malloc(sizeof(List));
     l->items = malloc(LIST_MIN_SIZE * sizeof(void *));
     l->size = 0;
     l->allocated = 1;

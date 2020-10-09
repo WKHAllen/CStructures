@@ -4,7 +4,7 @@
 
 EXPORT Queue *queue_new(void)
 {
-    Queue *q = malloc(sizeof(*q));
+    Queue *q = malloc(sizeof(Queue));
     q->size = 0;
     q->head = NULL;
     q->tail = NULL;
