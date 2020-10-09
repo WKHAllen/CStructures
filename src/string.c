@@ -137,7 +137,7 @@ EXPORT void string_reverse(String *s)
 
 }
 
-EXPORT void string_foreach(String *s, void (*fptr)(void *, void *), void *args)
+EXPORT void string_foreach(String *s, void (*fptr)(char, void *), void *args)
 {
 	for (int i = 0; i < s->length; i++)
 		(*fptr)(s->value[i], args);

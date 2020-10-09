@@ -58,7 +58,7 @@ String *string_copy(String *s);
 
 void string_reverse(String *s);
 
-void string_foreach(String *s, void (*fptr)(void *, void *), void *args);
+void string_foreach(String *s, void (*fptr)(char, void *), void *args);
 
 void string_free(String *s);
 
