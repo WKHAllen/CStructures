@@ -31,3 +31,7 @@ Hash table type. Based on Python's dictionary object. Contains functions for jus
 ### [BinaryTree](/src/binarytree.h)
 
 Binary tree type.
+
+### [String](/src/string.h)
+
+String type. Based in part on Python's string type.
