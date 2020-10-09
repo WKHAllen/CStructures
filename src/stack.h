@@ -1,6 +1,7 @@
 #ifndef _STACK_H_
 #define _STACK_H_
 
+#include "defs.h"
 #include <stdlib.h>
 
 struct StackNode
@@ -12,12 +13,12 @@ struct StackNode
 typedef struct _Stack
 {
     struct StackNode *head;
-    size_t size;
+    idx size;
 } Stack;
 
 Stack *stack_new(void);
 
-size_t stack_size(Stack *s);
+idx stack_size(Stack *s);
 
 int stack_is_empty(Stack *s);
 

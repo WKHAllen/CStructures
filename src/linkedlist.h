@@ -1,6 +1,7 @@
 #ifndef _LINKEDLIST_H_
 #define _LINKEDLIST_H_
 
+#include "defs.h"
 #include <stdlib.h>
 
 struct LinkedListNode
@@ -13,26 +14,26 @@ typedef struct _LinkedList
 {
     struct LinkedListNode *head;
     struct LinkedListNode *tail;
-    size_t size;
+    idx size;
 } LinkedList;
 
 LinkedList *linkedlist_new(void);
 
-size_t linkedlist_size(LinkedList *ll);
+idx linkedlist_size(LinkedList *ll);
 
 int linkedlist_is_empty(LinkedList *ll);
 
-void *linkedlist_get(LinkedList *ll, int index);
+void *linkedlist_get(LinkedList *ll, idx index);
 
-void linkedlist_set(LinkedList *ll, int index, void *value);
+void linkedlist_set(LinkedList *ll, idx index, void *value);
 
-void linkedlist_insert(LinkedList *ll, int index, void *value);
+void linkedlist_insert(LinkedList *ll, idx index, void *value);
 
 void linkedlist_append(LinkedList *ll, void *value);
 
-void *linkedlist_pop(LinkedList *ll, int index);
+void *linkedlist_pop(LinkedList *ll, idx index);
 
-void linkedlist_remove(LinkedList *ll, int index);
+void linkedlist_remove(LinkedList *ll, idx index);
 
 void linkedlist_clear(LinkedList *ll);
 

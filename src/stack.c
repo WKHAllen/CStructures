@@ -10,7 +10,7 @@ EXPORT Stack *stack_new(void)
     return s;
 }
 
-EXPORT size_t stack_size(Stack *s)
+EXPORT idx stack_size(Stack *s)
 {
     return s->size;
 }

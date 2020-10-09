@@ -13,7 +13,7 @@ EXPORT HashTable *hashtable_new(void)
     return ht;
 }
 
-EXPORT int hashtable_hash(HashTable *ht, void *key, size_t key_size)
+EXPORT int hashtable_hash(HashTable *ht, void *key, idx key_size)
 {
     int hashvalue = 0;
     for (int i = 0; i < sizeof(key_size); i++)
@@ -21,7 +21,7 @@ EXPORT int hashtable_hash(HashTable *ht, void *key, size_t key_size)
     return hashvalue % ht->allocated;
 }
 
-EXPORT size_t hashtable_size(HashTable *ht)
+EXPORT idx hashtable_size(HashTable *ht)
 {
     return ht->size;
 }
@@ -51,11 +51,11 @@ EXPORT void **hashtable_values(HashTable *ht)
     return ht_values;
 }
 
-EXPORT void hashtable_resize(HashTable *ht, size_t new_size)
+EXPORT void hashtable_resize(HashTable *ht, idx new_size)
 {
     void **ht_keys = malloc(ht->size * sizeof(void *));
     void **ht_values = malloc(ht->size * sizeof(void *));
-    size_t *ht_key_sizes = malloc(ht->size * sizeof(size_t));
+    idx *ht_key_sizes = malloc(ht->size * sizeof(idx));
     int found = 0;
     for (int i = 0; i < ht->allocated; i++)
     {
@@ -81,19 +81,19 @@ EXPORT void hashtable_resize(HashTable *ht, size_t new_size)
 
 EXPORT void hashtable_resize_up(HashTable *ht)
 {
-    size_t new_size = ht->allocated * 2;
+    idx new_size = ht->allocated * 2;
     hashtable_resize(ht, new_size);
 }
 
 EXPORT void hashtable_resize_down(HashTable *ht)
 {
-    size_t new_size = ht->allocated / 2;
+    idx new_size = ht->allocated / 2;
     if (new_size < HASHTABLE_MIN_SIZE)
         new_size = HASHTABLE_MIN_SIZE;
     hashtable_resize(ht, new_size);
 }
 
-EXPORT void *hashtable_get(HashTable *ht, void *key, size_t key_size)
+EXPORT void *hashtable_get(HashTable *ht, void *key, idx key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -106,7 +106,7 @@ EXPORT void *hashtable_get(HashTable *ht, void *key, size_t key_size)
     return NULL;
 }
 
-EXPORT void hashtable_set(HashTable *ht, void *key, void *value, size_t key_size)
+EXPORT void hashtable_set(HashTable *ht, void *key, void *value, idx key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -139,7 +139,7 @@ EXPORT void hashtable_extend(HashTable *ht1, HashTable *ht2)
             hashtable_set(ht1, ht2->items[i].key, ht2->items[i].value, ht2->items[i].key_size);
 }
 
-EXPORT void *hashtable_pop(HashTable *ht, void *key, size_t key_size)
+EXPORT void *hashtable_pop(HashTable *ht, void *key, idx key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;
@@ -158,7 +158,7 @@ EXPORT void *hashtable_pop(HashTable *ht, void *key, size_t key_size)
     return NULL;
 }
 
-EXPORT void hashtable_delete(HashTable *ht, void *key, size_t key_size)
+EXPORT void hashtable_delete(HashTable *ht, void *key, idx key_size)
 {
     hashtable_pop(ht, key, key_size);
 }
@@ -171,7 +171,7 @@ EXPORT void *hashtable_key(HashTable *ht, void *value)
     return NULL;
 }
 
-EXPORT int hashtable_contains(HashTable *ht, void *key, size_t key_size)
+EXPORT int hashtable_contains(HashTable *ht, void *key, idx key_size)
 {
     int hashvalue = hashtable_hash(ht, key, key_size);
     int current;

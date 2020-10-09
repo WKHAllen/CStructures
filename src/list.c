@@ -11,7 +11,7 @@ EXPORT List *list_new(void)
     return l;
 }
 
-EXPORT size_t list_size(List *l)
+EXPORT idx list_size(List *l)
 {
     return l->size;
 }
@@ -21,7 +21,7 @@ EXPORT int list_is_empty(List *l)
     return l->size == 0;
 }
 
-EXPORT void list_resize(List *l, size_t new_size)
+EXPORT void list_resize(List *l, idx new_size)
 {
     l->items = realloc(l->items, new_size * sizeof(void *));
     l->allocated = new_size;
@@ -29,19 +29,19 @@ EXPORT void list_resize(List *l, size_t new_size)
 
 EXPORT void list_resize_up(List *l)
 {
-    size_t new_size = l->allocated * 2;
+    idx new_size = l->allocated * 2;
     list_resize(l, new_size);
 }
 
 EXPORT void list_resize_down(List *l)
 {
-    size_t new_size = l->allocated / 2;
+    idx new_size = l->allocated / 2;
     if (new_size < LIST_MIN_SIZE)
         new_size = LIST_MIN_SIZE;
     list_resize(l, new_size);
 }
 
-EXPORT void *list_get(List *l, int index)
+EXPORT void *list_get(List *l, idx index)
 {
     if (index < 0)
         index += l->size;
@@ -50,7 +50,7 @@ EXPORT void *list_get(List *l, int index)
     return l->items[index];
 }
 
-EXPORT void list_set(List *l, int index, void *value)
+EXPORT void list_set(List *l, idx index, void *value)
 {
     if (index < 0)
         index += l->size;
@@ -69,11 +69,11 @@ EXPORT void list_append(List *l, void *value)
 
 EXPORT void list_extend(List *l1, List *l2)
 {
-    for (int i = 0; i < l2->size; i++)
+    for (idx i = 0; i < l2->size; i++)
         list_append(l1, l2->items[i]);
 }
 
-EXPORT void list_insert(List *l, int index, void *value)
+EXPORT void list_insert(List *l, idx index, void *value)
 {
     if (index < 0)
         index += l->size;
@@ -81,20 +81,20 @@ EXPORT void list_insert(List *l, int index, void *value)
         return;
     if (l->size >= l->allocated)
         list_resize_up(l);
-    for (int i = l->size - 1; i >= index; i--)
+    for (idx i = l->size - 1; i >= index; i--)
         l->items[i + 1] = l->items[i];
     l->items[index] = value;
     l->size++;
 }
 
-EXPORT void *list_pop(List *l, int index)
+EXPORT void *list_pop(List *l, idx index)
 {
     if (index < 0)
         index += l->size;
     if (index < 0 || index >= l->size)
         return NULL;
     void *value = l->items[index];
-    for (int i = index + 1; i < l->size; i++)
+    for (idx i = index + 1; i < l->size; i++)
         l->items[i - 1] = l->items[i];
     if (l->size <= l->allocated / 2 && l->allocated > LIST_MIN_SIZE)
         list_resize_down(l);
@@ -102,12 +102,12 @@ EXPORT void *list_pop(List *l, int index)
     return value;
 }
 
-EXPORT void list_delete(List *l, int index)
+EXPORT void list_delete(List *l, idx index)
 {
     list_pop(l, index);
 }
 
-EXPORT List *list_slice(List *l, int index1, int index2)
+EXPORT List *list_slice(List *l, idx index1, idx index2)
 {
     List *lslice = list_new();
     if (index1 < 0)
@@ -122,9 +122,9 @@ EXPORT List *list_slice(List *l, int index1, int index2)
     return lslice;
 }
 
-EXPORT int list_index(List *l, void *value)
+EXPORT idx list_index(List *l, void *value)
 {
-    for (int i = 0; i < l->size; i++)
+    for (idx i = 0; i < l->size; i++)
         if (l->items[i] == value)
             return i;
     return -1;
@@ -133,7 +133,7 @@ EXPORT int list_index(List *l, void *value)
 EXPORT int list_count(List *l, void *value)
 {
     int total = 0;
-    for (int i = 0; i < l->size; i++)
+    for (idx i = 0; i < l->size; i++)
         if (l->items[i] == value)
             total++;
     return total;
@@ -141,28 +141,28 @@ EXPORT int list_count(List *l, void *value)
 
 EXPORT void list_remove(List *l, void *value)
 {
-    int index = list_index(l, value);
+    idx index = list_index(l, value);
     if (index != -1)
         list_delete(l, index);
 }
 
 EXPORT void list_remove_all(List *l, void *value)
 {
-    for (int i = 0; i < l->size; i++)
+    for (idx i = 0; i < l->size; i++)
         if (l->items[i] == value)
             list_delete(l, i--);
 }
 
 EXPORT void list_replace(List *l, void *value1, void *value2)
 {
-    int index = list_index(l, value1);
+    idx index = list_index(l, value1);
     if (index != -1)
         l->items[index] = value2;
 }
 
 EXPORT void list_replace_all(List *l, void *value1, void *value2)
 {
-    for (int i = 0; i < l->size; i++)
+    for (idx i = 0; i < l->size; i++)
         if (l->items[i] == value1)
             l->items[i] = value2;
 }
@@ -171,7 +171,7 @@ EXPORT int list_equal(List *l1, List *l2)
 {
     if (l1->size != l2->size)
         return 0;
-    for (int i = 0; i < l1->size; i++)
+    for (idx i = 0; i < l1->size; i++)
         if (l1->items[i] != l2->items[i])
             return 0;
     return 1;
@@ -187,7 +187,7 @@ EXPORT void list_clear(List *l)
 EXPORT List *list_copy(List *l)
 {
     List *new_list = list_new();
-    for (int i = 0; i < l->size; i++)
+    for (idx i = 0; i < l->size; i++)
         list_append(new_list, l->items[i]);
     return new_list;
 }
@@ -195,7 +195,7 @@ EXPORT List *list_copy(List *l)
 EXPORT void list_reverse(List *l)
 {
     void *tmp;
-    for (int i = 0; i < l->size / 2; i++)
+    for (idx i = 0; i < l->size / 2; i++)
     {
         tmp = l->items[i];
         l->items[i] = l->items[l->size - i - 1];
@@ -205,7 +205,7 @@ EXPORT void list_reverse(List *l)
 
 EXPORT void list_foreach(List *l, void (*fptr)(void *, void *), void *args)
 {
-    for (int i = 0; i < l->size; i++)
+    for (idx i = 0; i < l->size; i++)
         (*fptr)(l->items[i], args);
 }
 

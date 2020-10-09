@@ -32,17 +32,17 @@ EXPORT char *string_value(String *s)
 
 }
 
-EXPORT size_t string_length(String *s)
+EXPORT idx string_length(String *s)
 {
 
 }
 
-EXPORT char string_get(String *s, int index)
+EXPORT char string_get(String *s, idx index)
 {
 
 }
 
-EXPORT void string_set(String *s, int index, char chr)
+EXPORT void string_set(String *s, idx index, char chr)
 {
 
 }
@@ -52,12 +52,12 @@ EXPORT void string_concat(String *s1, String *s2)
 
 }
 
-EXPORT void string_slice(String *s, int index1, int index2)
+EXPORT void string_slice(String *s, idx index1, idx index2)
 {
 
 }
 
-EXPORT void string_delete(String *s, int index)
+EXPORT void string_delete(String *s, idx index)
 {
 
 }

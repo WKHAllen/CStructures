@@ -1,11 +1,12 @@
 #ifndef _STRING_H_
 #define _STRING_H_
 
+#include "defs.h"
 #include <stdlib.h>
 
 typedef struct _String {
 	char *value;
-	size_t length;
+	idx length;
 } String;
 
 String *string_new(void);
@@ -16,17 +17,17 @@ String *string_from_char(char chr);
 
 char *string_value(String *s);
 
-size_t string_length(String *s);
+idx string_length(String *s);
 
-char string_get(String *s, int index);
+char string_get(String *s, idx index);
 
-void string_set(String *s, int index, char chr);
+void string_set(String *s, idx index, char chr);
 
 void string_concat(String *s1, String *s2);
 
-void string_slice(String *s, int index1, int index2);
+void string_slice(String *s, idx index1, idx index2);
 
-void string_delete(String *s, int index);
+void string_delete(String *s, idx index);
 
 int string_index(String *s1, String *s2);
 

@@ -11,7 +11,7 @@ EXPORT Queue *queue_new(void)
     return q;
 }
 
-EXPORT size_t queue_size(Queue *q)
+EXPORT idx queue_size(Queue *q)
 {
     return q->size;
 }

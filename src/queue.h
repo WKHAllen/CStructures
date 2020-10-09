@@ -1,6 +1,7 @@
 #ifndef _QUEUE_H_
 #define _QUEUE_H_
 
+#include "defs.h"
 #include <stdlib.h>
 
 struct QueueNode
@@ -13,12 +14,12 @@ typedef struct _Queue
 {
     struct QueueNode *head;
     struct QueueNode *tail;
-    size_t size;
+    idx size;
 } Queue;
 
 Queue *queue_new(void);
 
-size_t queue_size(Queue *q);
+idx queue_size(Queue *q);
 
 int queue_is_empty(Queue *q);
 

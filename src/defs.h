@@ -7,4 +7,6 @@
     #define EXPORT __attribute__((visibility("default")))
 #endif
 
+typedef signed long long idx;
+
 #endif // _DEFS_H_

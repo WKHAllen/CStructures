@@ -11,7 +11,7 @@ EXPORT LinkedList *linkedlist_new(void)
     return ll;
 }
 
-EXPORT size_t linkedlist_size(LinkedList *ll)
+EXPORT idx linkedlist_size(LinkedList *ll)
 {
     return ll->size;
 }
@@ -21,7 +21,7 @@ EXPORT int linkedlist_is_empty(LinkedList *ll)
     return ll->size == 0;
 }
 
-EXPORT void *linkedlist_get(LinkedList *ll, int index)
+EXPORT void *linkedlist_get(LinkedList *ll, idx index)
 {
     if (index < 0 || index >= ll->size)
         return NULL;
@@ -31,7 +31,7 @@ EXPORT void *linkedlist_get(LinkedList *ll, int index)
     return current->value;
 }
 
-EXPORT void linkedlist_set(LinkedList *ll, int index, void *value)
+EXPORT void linkedlist_set(LinkedList *ll, idx index, void *value)
 {
     if (index < 0 || index >= ll->size)
         return;
@@ -41,7 +41,7 @@ EXPORT void linkedlist_set(LinkedList *ll, int index, void *value)
     current->value = value;
 }
 
-EXPORT void linkedlist_insert(LinkedList *ll, int index, void *value)
+EXPORT void linkedlist_insert(LinkedList *ll, idx index, void *value)
 {
     if (index < 0 || index > ll->size)
         return;
@@ -76,7 +76,7 @@ EXPORT void linkedlist_append(LinkedList *ll, void *value)
     linkedlist_insert(ll, ll->size, value);
 }
 
-EXPORT void *linkedlist_pop(LinkedList *ll, int index)
+EXPORT void *linkedlist_pop(LinkedList *ll, idx index)
 {
     if (index < 0 || index >= ll->size)
         return NULL;
@@ -107,7 +107,7 @@ EXPORT void *linkedlist_pop(LinkedList *ll, int index)
     }
 }
 
-EXPORT void linkedlist_remove(LinkedList *ll, int index)
+EXPORT void linkedlist_remove(LinkedList *ll, idx index)
 {
     linkedlist_pop(ll, index);
 }
