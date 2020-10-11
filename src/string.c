@@ -29,22 +29,30 @@ EXPORT String *string_from_char(char chr)
 
 EXPORT char *string_value(String *s)
 {
-
+	return strdup(s->value);
 }
 
 EXPORT idx string_length(String *s)
 {
-
+	return s->length;
 }
 
 EXPORT char string_get(String *s, idx index)
 {
-
+	if (index < 0)
+		index += s->length;
+	if (index < 0 || index >= s->length)
+		return NULL;
+	return s->value[index];
 }
 
 EXPORT void string_set(String *s, idx index, char chr)
 {
-
+	if (index < 0)
+		index += s->length;
+	if (index < 0 || index >= s->length)
+		return;
+	return s->value[index] = chr;
 }
 
 EXPORT void string_concat(String *s1, String *s2)
@@ -52,7 +60,17 @@ EXPORT void string_concat(String *s1, String *s2)
 
 }
 
-EXPORT void string_slice(String *s, idx index1, idx index2)
+EXPORT String *string_slice(String *s, idx index1, idx index2)
+{
+
+}
+
+EXPORT String *string_slice_start(String *s, idx index)
+{
+
+}
+
+EXPORT String *string_slice_end(String *s, idx index)
 {
 
 }

@@ -25,7 +25,11 @@ void string_set(String *s, idx index, char chr);
 
 void string_concat(String *s1, String *s2);
 
-void string_slice(String *s, idx index1, idx index2);
+String *string_slice(String *s, idx index1, idx index2);
+
+String *string_slice_start(String *s, idx index);
+
+String *string_slice_end(String *s, idx index);
 
 void string_delete(String *s, idx index);
 
