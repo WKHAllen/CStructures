@@ -100,12 +100,34 @@ EXPORT String *string_slice_end(String *s, idx index)
 
 EXPORT idx string_index(String *s1, String *s2)
 {
-
+	idx s2idx = 0;
+	for (idx i = 0; i < s1->length; i++)
+	{
+		if (s1->value[i] == s2->value[s2idx])
+			s2idx++;
+		else
+			s2idx = 0;
+		if (s2idx >= s2->length)
+			return i - s2idx;
+	}
+	return -1;
 }
 
 EXPORT idx string_count(String *s1, String *s2)
 {
-
+	idx count = 0;
+	idx s2idx = 0;
+	for (idx i = 0; i < s1->length; i++)
+	{
+		if (s1->value[i] == s2->value[s2idx])
+			s2idx++;
+		else
+			s2idx = 0;
+		if (s2idx >= s2->length)
+			s2idx = 0;
+			count++;
+	}
+	return count;
 }
 
 EXPORT void string_remove(String *s1, String *s2)
