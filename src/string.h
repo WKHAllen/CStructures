@@ -37,9 +37,9 @@ idx string_index(String *s1, String *s2);
 
 idx string_count(String *s1, String *s2);
 
-void string_replace(String *s1, String *s2);
+String *string_replace(String *s1, String *s2);
 
-void string_replace_all(String *s1, String *s2);
+String *string_replace_all(String *s1, String *s2);
 
 int string_equal(String *s1, String *s2);
 
@@ -49,15 +49,15 @@ int string_starts_with(String *s1, String *s2);
 
 int string_ends_with(String *s1, String *s2);
 
-void string_lower(String *s);
+String *string_lower(String *s);
 
-void string_upper(String *s);
+String *string_upper(String *s);
 
-void string_swap_case(String *s);
+String *string_swap_case(String *s);
 
 String *string_copy(String *s);
 
-void string_reverse(String *s);
+String *string_reverse(String *s);
 
 void string_foreach(String *s, void (*fptr)(char, void *), void *args);
 

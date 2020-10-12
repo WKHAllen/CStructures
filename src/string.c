@@ -130,12 +130,12 @@ EXPORT idx string_count(String *s1, String *s2)
 	return count;
 }
 
-EXPORT void string_replace(String *s1, String *s2)
+EXPORT String *string_replace(String *s1, String *s2)
 {
 
 }
 
-EXPORT void string_replace_all(String *s1, String *s2)
+EXPORT String *string_replace_all(String *s1, String *s2)
 {
 
 }
@@ -160,17 +160,17 @@ EXPORT int string_ends_with(String *s1, String *s2)
 
 }
 
-EXPORT void string_lower(String *s)
+EXPORT String *string_lower(String *s)
 {
 
 }
 
-EXPORT void string_upper(String *s)
+EXPORT String *string_upper(String *s)
 {
 
 }
 
-EXPORT void string_swap_case(String *s)
+EXPORT String *string_swap_case(String *s)
 {
 
 }
@@ -180,7 +180,7 @@ EXPORT String *string_copy(String *s)
 
 }
 
-EXPORT void string_reverse(String *s)
+EXPORT String *string_reverse(String *s)
 {
 
 }
