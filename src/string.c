@@ -49,7 +49,7 @@ EXPORT char string_get(String *s, idx index)
 	if (index < 0)
 		index += s->length;
 	if (index < 0 || index >= s->length)
-		return NULL;
+		return '\0';
 	return s->value[index];
 }
 
@@ -59,7 +59,7 @@ EXPORT void string_set(String *s, idx index, char chr)
 		index += s->length;
 	if (index < 0 || index >= s->length)
 		return;
-	return s->value[index] = chr;
+	s->value[index] = chr;
 }
 
 EXPORT String *string_concat(String *s1, String *s2)
