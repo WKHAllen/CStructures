@@ -15,6 +15,8 @@ String *string_from(char *string);
 
 String *string_from_char(char chr);
 
+void string_from_string(String *s1, String *s2);
+
 char *string_value(String *s);
 
 idx string_length(String *s);

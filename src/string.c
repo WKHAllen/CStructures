@@ -27,6 +27,13 @@ EXPORT String *string_from_char(char chr)
 	return s;
 }
 
+EXPORT void string_from_string(String *s1, String *s2)
+{
+	free(s1->value);
+	s1->value = strdup(s2->value);
+	s1->length = s2->length;
+}
+
 EXPORT char *string_value(String *s)
 {
 	return strdup(s->value);
