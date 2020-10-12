@@ -62,9 +62,14 @@ EXPORT void string_set(String *s, idx index, char chr)
 	return s->value[index] = chr;
 }
 
-EXPORT void string_concat(String *s1, String *s2)
+EXPORT String *string_concat(String *s1, String *s2)
 {
-
+	char *value = malloc(sizeof(char) * (s1->length + s2->length) + 1);
+	strcpy(value, s1->value);
+	strcat(value, s2->value);
+	String *string_value = string_from(value);
+	free(value);
+	return string_value;
 }
 
 EXPORT String *string_slice(String *s, idx index1, idx index2)

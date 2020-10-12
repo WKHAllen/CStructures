@@ -25,7 +25,7 @@ char string_get(String *s, idx index);
 
 void string_set(String *s, idx index, char chr);
 
-void string_concat(String *s1, String *s2);
+String *string_concat(String *s1, String *s2);
 
 String *string_slice(String *s, idx index1, idx index2);
 
