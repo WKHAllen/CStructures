@@ -142,12 +142,17 @@ EXPORT String *string_replace_all(String *s1, String *s2)
 
 EXPORT int string_equal(String *s1, String *s2)
 {
-
+	if (s1->length != s2->length)
+		return 0;
+	for (idx i = 0; i < s1->length; i++)
+		if (s1->value[i] != s2->value[i])
+			return 0;
+	return 1;
 }
 
 EXPORT int string_compare(String *s1, String *s2)
 {
-
+	return strcmp(s1->value, s2->value);
 }
 
 EXPORT int string_starts_with(String *s1, String *s2)
