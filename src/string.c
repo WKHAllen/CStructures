@@ -130,16 +130,6 @@ EXPORT idx string_count(String *s1, String *s2)
 	return count;
 }
 
-EXPORT void string_remove(String *s1, String *s2)
-{
-
-}
-
-EXPORT void string_remove_all(String *s1, String *s2)
-{
-
-}
-
 EXPORT void string_replace(String *s1, String *s2)
 {
 

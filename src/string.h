@@ -37,10 +37,6 @@ idx string_index(String *s1, String *s2);
 
 idx string_count(String *s1, String *s2);
 
-void string_remove(String *s1, String *s2);
-
-void string_remove_all(String *s1, String *s2);
-
 void string_replace(String *s1, String *s2);
 
 void string_replace_all(String *s1, String *s2);
