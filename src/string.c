@@ -177,17 +177,25 @@ EXPORT int string_ends_with(String *s1, String *s2)
 
 EXPORT String *string_lower(String *s)
 {
-
+	for (idx i = 0; i < s->length; i++)
+		if (s->value[i] >= 'A' && s->value[i] <= 'Z')
+			s->value[i] += 'a' - 'A';
 }
 
 EXPORT String *string_upper(String *s)
 {
-
+	for (idx i = 0; i < s->length; i++)
+		if (s->value[i] >= 'a' && s->value[i] <= 'z')
+			s->value[i] += 'A' - 'a';
 }
 
 EXPORT String *string_swap_case(String *s)
 {
-
+	for (idx i = 0; i < s->length; i++)
+		if (s->value[i] >= 'A' && s->value[i] <= 'Z')
+			s->value[i] += 'a' - 'A';
+		else if (s->value[i] >= 'a' && s->value[i] <= 'z')
+			s->value[i] += 'A' - 'a';
 }
 
 EXPORT String *string_copy(String *s)
