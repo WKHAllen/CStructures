@@ -157,12 +157,22 @@ EXPORT int string_compare(String *s1, String *s2)
 
 EXPORT int string_starts_with(String *s1, String *s2)
 {
-
+	if (s2->length > s1->length)
+		return 0;
+	for (idx i = 0; i < s2->length; i++)
+		if (s1->value[i] != s2->value[i])
+			return 0;
+	return 1;
 }
 
 EXPORT int string_ends_with(String *s1, String *s2)
 {
-
+	if (s2->length > s1->length)
+		return 0;
+	for (idx i = 0; i < s2->length; i++)
+		if (s1->value[s1->length - s2->length + i] != s2->value[i])
+			return 0;
+	return 1;
 }
 
 EXPORT String *string_lower(String *s)
