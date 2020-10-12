@@ -33,8 +33,6 @@ String *string_slice_start(String *s, idx index);
 
 String *string_slice_end(String *s, idx index);
 
-void string_delete(String *s, idx index);
-
 int string_index(String *s1, String *s2);
 
 int string_count(String *s1, String *s2);

@@ -64,7 +64,7 @@ EXPORT void string_set(String *s, idx index, char chr)
 
 EXPORT String *string_concat(String *s1, String *s2)
 {
-	char *value = malloc(sizeof(char) * (s1->length + s2->length) + 1);
+	char *value = malloc(sizeof(char) * (s1->length + s2->length + 1));
 	strcpy(value, s1->value);
 	strcat(value, s2->value);
 	String *string_value = string_from(value);
@@ -74,22 +74,28 @@ EXPORT String *string_concat(String *s1, String *s2)
 
 EXPORT String *string_slice(String *s, idx index1, idx index2)
 {
-
+	if (index1 < 0)
+		index1 += s->length;
+	if (index2 < 0)
+		index2 += s->length;
+	if (index1 < 0 || index1 >= s->length || index2 < 0 || index2 >= s->length || index1 > index2)
+		return NULL;
+	char *value = malloc(sizeof(char) * (index2 - index1 + 1));
+	for (idx i = 0; i < index2 - index1; i++)
+		value[i] = s->value[index1 + i];
+	String *string_value = string_from(value);
+	free(value);
+	return string_value;
 }
 
 EXPORT String *string_slice_start(String *s, idx index)
 {
-
+	return string_slice(s, 0, index);
 }
 
 EXPORT String *string_slice_end(String *s, idx index)
 {
-
-}
-
-EXPORT void string_delete(String *s, idx index)
-{
-
+	return string_slice(s, index, s->length);
 }
 
 EXPORT int string_index(String *s1, String *s2)
