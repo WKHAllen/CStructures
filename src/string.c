@@ -98,12 +98,12 @@ EXPORT String *string_slice_end(String *s, idx index)
 	return string_slice(s, index, s->length);
 }
 
-EXPORT int string_index(String *s1, String *s2)
+EXPORT idx string_index(String *s1, String *s2)
 {
 
 }
 
-EXPORT int string_count(String *s1, String *s2)
+EXPORT idx string_count(String *s1, String *s2)
 {
 
 }
