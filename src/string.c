@@ -124,8 +124,10 @@ EXPORT idx string_count(String *s1, String *s2)
 		else
 			s2idx = 0;
 		if (s2idx >= s2->length)
+		{
 			s2idx = 0;
 			count++;
+		}
 	}
 	return count;
 }
