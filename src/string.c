@@ -200,12 +200,18 @@ EXPORT String *string_swap_case(String *s)
 
 EXPORT String *string_copy(String *s)
 {
-
+	return string_from(s->value);
 }
 
 EXPORT String *string_reverse(String *s)
 {
-
+	char tmp;
+	for (idx i = 0; i < s->length / 2; i++)
+	{
+		tmp = s->value[i];
+		s->value[i] = s->value[s->length - i - 1];
+		s->value[s->length - i - 1] = tmp;
+	}
 }
 
 EXPORT void string_foreach(String *s, void (*fptr)(char, void *), void *args)
