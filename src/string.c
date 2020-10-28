@@ -98,10 +98,10 @@ EXPORT String *string_slice_end(String *s, idx index)
 	return string_slice(s, index, s->length);
 }
 
-EXPORT idx string_index(String *s1, String *s2)
+idx string_index_after(String *s1, String *s2, idx start_index)
 {
 	idx s2idx = 0;
-	for (idx i = 0; i < s1->length; i++)
+	for (idx i = start_index; i < s1->length; i++)
 	{
 		if (s1->value[i] == s2->value[s2idx])
 			s2idx++;
@@ -111,6 +111,11 @@ EXPORT idx string_index(String *s1, String *s2)
 			return i - s2idx;
 	}
 	return -1;
+}
+
+EXPORT idx string_index(String *s1, String *s2)
+{
+	return string_index_after(s1, s2, 0);
 }
 
 EXPORT idx string_count(String *s1, String *s2)
@@ -132,14 +137,38 @@ EXPORT idx string_count(String *s1, String *s2)
 	return count;
 }
 
-EXPORT String *string_replace(String *s1, String *s2)
+String *string_replace_after(String *s1, String *s2, String *s3, idx start_index)
 {
-
+	idx index = string_index_after(s1, s2, start_index);
+	String *result1 = string_slice_start(s1, index);
+	String *result2 = string_concat(result1, s3);
+	string_free(result1);
+	String *result3 = string_slice_end(s1, index + string_length(s2));
+	String *result4 = string_concat(result2, result3);
+	string_free(result2);
+	string_free(result3);
+	return result4;
 }
 
-EXPORT String *string_replace_all(String *s1, String *s2)
+EXPORT String *string_replace(String *s1, String *s2, String *s3)
 {
+	return string_replace_after(s1, s2, s3, 0);
+}
 
+EXPORT String *string_replace_all(String *s1, String *s2, String *s3)
+{
+	idx prev_index = 0;
+	idx index = string_index(s1, s2);
+	String *result = string_copy(s1);
+	while (index != -1)
+	{
+		String *new_result = string_replace_after(s1, s2, s3, prev_index);
+		string_from_string(result, new_result);
+		string_free(new_result);
+		prev_index = index + string_length(s2);
+		index = string_index_after(s1, s2, index + string_length(s2));
+	}
+	return result;
 }
 
 EXPORT int string_equal(String *s1, String *s2)

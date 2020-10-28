@@ -37,9 +37,9 @@ idx string_index(String *s1, String *s2);
 
 idx string_count(String *s1, String *s2);
 
-String *string_replace(String *s1, String *s2);
+String *string_replace(String *s1, String *s2, String *s3);
 
-String *string_replace_all(String *s1, String *s2);
+String *string_replace_all(String *s1, String *s2, String *s3);
 
 int string_equal(String *s1, String *s2);
 
