@@ -37,6 +37,19 @@ int main(int argc, char **argv)
 	string_free(s4);
 	string_free(s5);
 
+	// test value and length
+	String *s6 = string_from("hello!");
+	assert(strcmp(string_value(s6), "hello!") == 0);
+	assert(string_length(s6) == 6);
+	string_free(s6);
+
+	// test get and set
+	String *s7 = string_from("ABCDEFG");
+	assert(string_get(s7, 2) == 'C');
+	string_set(s7, 2, 'Z');
+	assert(string_get(s7, 2) == 'Z');
+	string_free(s7);
+
     printf("Successfully passed all tests\n");
     return 0;
 }
