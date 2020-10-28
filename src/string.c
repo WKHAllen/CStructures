@@ -116,7 +116,7 @@ idx string_index_after(String *s1, String *s2, idx start_index)
 		else
 			s2idx = 0;
 		if (s2idx >= s2->length)
-			return i - s2idx;
+			return i - s2idx + 1;
 	}
 	return -1;
 }
@@ -170,7 +170,7 @@ EXPORT String *string_replace_all(String *s1, String *s2, String *s3)
 	String *result = string_copy(s1);
 	while (index != -1)
 	{
-		String *new_result = string_replace_after(s1, s2, s3, prev_index);
+		String *new_result = string_replace_after(result, s2, s3, prev_index);
 		string_from_string(result, new_result);
 		string_free(new_result);
 		prev_index = index + string_length(s2);

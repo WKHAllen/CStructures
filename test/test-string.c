@@ -85,6 +85,35 @@ int main(int argc, char **argv)
 	string_free(s18);
 	string_free(s19);
 
+	// test index, count, replace, and replace all
+	String *s20 = string_from("127.0.0.1");
+	String *s21 = string_from_char('.');
+	String *s22 = string_from_char('0');
+	String *s23 = string_from("27");
+	String *s24 = string_from("3");
+	assert(string_index(s20, s21) == 3);
+	assert(string_index(s20, s22) == 4);
+	assert(string_index(s20, s23) == 1);
+	assert(string_index(s20, s24) == -1);
+	assert(string_count(s20, s21) == 3);
+	assert(string_count(s20, s22) == 2);
+	assert(string_count(s20, s23) == 1);
+	assert(string_count(s20, s24) == 0);
+	String *s25 = string_replace(s20, s21, s24);
+	assert(strcmp(string_value(s25), "12730.0.1") == 0);
+	String *s26 = string_replace_all(s20, s21, s24);
+	assert(strcmp(string_value(s26), "127303031") == 0);
+	String *s27 = string_replace_all(s20, s24, s21);
+	assert(strcmp(string_value(s27), "127.0.0.1") == 0);
+	string_free(s20);
+	string_free(s21);
+	string_free(s22);
+	string_free(s23);
+	string_free(s24);
+	string_free(s25);
+	string_free(s26);
+	string_free(s27);
+
     printf("Successfully passed all tests\n");
     return 0;
 }
