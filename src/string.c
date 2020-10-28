@@ -22,7 +22,10 @@ EXPORT String *string_from(char *string)
 EXPORT String *string_from_char(char chr)
 {
 	String *s = malloc(sizeof(String));
-	s->value = strdup(&chr);
+	char value[2];
+	value[0] = chr;
+	value[1] = '\0';
+	s->value = strdup(value);
 	s->length = 1;
 	return s;
 }
@@ -78,11 +81,16 @@ EXPORT String *string_slice(String *s, idx index1, idx index2)
 		index1 += s->length;
 	if (index2 < 0)
 		index2 += s->length;
-	if (index1 < 0 || index1 >= s->length || index2 < 0 || index2 >= s->length || index1 > index2)
-		return NULL;
+	if (index1 < 0)
+		index1 = 0;
+	if (index2 > s->length)
+		index2 = s->length;
+	if (index1 >= s->length || index2 <= 0 || index1 >= index2)
+		return string_new();
 	char *value = malloc(sizeof(char) * (index2 - index1 + 1));
 	for (idx i = 0; i < index2 - index1; i++)
 		value[i] = s->value[index1 + i];
+	value[index2 - index1] = '\0';
 	String *string_value = string_from(value);
 	free(value);
 	return string_value;

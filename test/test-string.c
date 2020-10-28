@@ -50,6 +50,41 @@ int main(int argc, char **argv)
 	assert(string_get(s7, 2) == 'Z');
 	string_free(s7);
 
+	// test concat
+	String *s8 = string_from("Hello,");
+	String *s9 = string_from_char(' ');
+	String *s10 = string_from("world!");
+	String *s11 = string_concat(s8, s9);
+	string_free(s8);
+	string_free(s9);
+	String *s12 = string_concat(s11, s10);
+	string_free(s10);
+	string_free(s11);
+	assert(strcmp(string_value(s12), "Hello, world!") == 0);
+	string_free(s12);
+
+	// test slice, slice start, and slice end
+	String *s13 = string_from("Hello, world!");
+	String *s14 = string_slice(s13, 3, 8);
+	assert(strcmp(string_value(s14), "lo, w") == 0);
+	String *s15 = string_slice(s13, 8, 3);
+	assert(strcmp(string_value(s15), "") == 0);
+	String *s16 = string_slice(s13, -20, 3);
+	assert(strcmp(string_value(s16), "Hel") == 0);
+	String *s17 = string_slice(s13, -3, 20);
+	assert(strcmp(string_value(s17), "ld!") == 0);
+	String *s18 = string_slice_start(s13, 5);
+	assert(strcmp(string_value(s18), "Hello") == 0);
+	String *s19 = string_slice_end(s13, 7);
+	assert(strcmp(string_value(s19), "world!") == 0);
+	string_free(s13);
+	string_free(s14);
+	string_free(s15);
+	string_free(s16);
+	string_free(s17);
+	string_free(s18);
+	string_free(s19);
+
     printf("Successfully passed all tests\n");
     return 0;
 }
