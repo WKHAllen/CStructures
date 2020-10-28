@@ -3,11 +3,16 @@
 #include <assert.h>
 #include <string.h>
 
+void sum_chars(char value, void *total)
+{
+	*(int *)total += (int)value;
+}
+
 int main(int argc, char **argv)
 {
-    printf("Running tests...\n");
+	printf("Running tests...\n");
 
-    // test initialization from nothing
+	// test initialization from nothing
 	String *s1 = string_new();
 	assert(s1 != NULL);
 	assert(s1->length == 0);
@@ -145,6 +150,30 @@ int main(int argc, char **argv)
 	assert(strcmp(string_value(s35), "hELLO, wORLD!") == 0);
 	string_free(s35);
 
-    printf("Successfully passed all tests\n");
-    return 0;
+	// test copy and reverse
+	String *s36 = string_from("Hello, world!");
+	String *s37 = string_copy(s36);
+	assert(strcmp(string_value(s36), string_value(s37)) == 0);
+	assert(s36 != s37);
+	assert(s36->value != s37->value);
+	String *s38 = string_reverse(s36);
+	String *s39 = string_from("!dlrow ,olleH");
+	assert(strcmp(string_value(s38), string_value(s39)) == 0);
+	string_free(s36);
+	string_free(s37);
+	string_free(s38);
+	string_free(s39);
+
+	// test foreach
+	String *s40 = string_from("Hello, world!");
+	int expected = 0;
+	for (idx i = 0; i < string_length(s40); i++)
+		expected += (int)string_get(s40, i);
+	int result = 0;
+	string_foreach(s40, sum_chars, &result);
+	assert(result == expected);
+	string_free(s40);
+
+	printf("Successfully passed all tests\n");
+	return 0;
 }

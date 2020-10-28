@@ -263,7 +263,7 @@ EXPORT String *string_reverse(String *s)
 
 EXPORT void string_foreach(String *s, void (*fptr)(char, void *), void *args)
 {
-	for (int i = 0; i < s->length; i++)
+	for (idx i = 0; i < s->length; i++)
 		(*fptr)(s->value[i], args);
 }
 
