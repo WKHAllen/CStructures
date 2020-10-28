@@ -114,6 +114,25 @@ int main(int argc, char **argv)
 	string_free(s26);
 	string_free(s27);
 
+	// test equal, compare, starts with, and ends with
+	String *s28 = string_from("Hello, world!");
+	String *s29 = string_from("Hello, world!");
+	String *s30 = string_from("Hello");
+	String *s31 = string_from("rld!");
+	assert(string_equal(s28, s29) == 1);
+	assert(string_equal(s28, s30) == 0);
+	assert(string_compare(s28, s29) == 0);
+	assert(string_compare(s28, s30) > 0);
+	assert(string_compare(s30, s28) < 0);
+	assert(string_starts_with(s28, s30) == 1);
+	assert(string_starts_with(s28, s31) == 0);
+	assert(string_ends_with(s28, s31) == 1);
+	assert(string_ends_with(s28, s30) == 0);
+	string_free(s28);
+	string_free(s29);
+	string_free(s30);
+	string_free(s31);
+
     printf("Successfully passed all tests\n");
     return 0;
 }
