@@ -216,25 +216,31 @@ EXPORT int string_ends_with(String *s1, String *s2)
 
 EXPORT String *string_lower(String *s)
 {
-	for (idx i = 0; i < s->length; i++)
-		if (s->value[i] >= 'A' && s->value[i] <= 'Z')
-			s->value[i] += 'a' - 'A';
+	String *lower_string = string_copy(s);
+	for (idx i = 0; i < lower_string->length; i++)
+		if (lower_string->value[i] >= 'A' && lower_string->value[i] <= 'Z')
+			lower_string->value[i] += 'a' - 'A';
+	return lower_string;
 }
 
 EXPORT String *string_upper(String *s)
 {
-	for (idx i = 0; i < s->length; i++)
-		if (s->value[i] >= 'a' && s->value[i] <= 'z')
-			s->value[i] += 'A' - 'a';
+	String *upper_string = string_copy(s);
+	for (idx i = 0; i < upper_string->length; i++)
+		if (upper_string->value[i] >= 'a' && upper_string->value[i] <= 'z')
+			upper_string->value[i] += 'A' - 'a';
+	return upper_string;
 }
 
 EXPORT String *string_swap_case(String *s)
 {
-	for (idx i = 0; i < s->length; i++)
-		if (s->value[i] >= 'A' && s->value[i] <= 'Z')
-			s->value[i] += 'a' - 'A';
-		else if (s->value[i] >= 'a' && s->value[i] <= 'z')
-			s->value[i] += 'A' - 'a';
+	String *swapped_string = string_copy(s);
+	for (idx i = 0; i < swapped_string->length; i++)
+		if (swapped_string->value[i] >= 'A' && swapped_string->value[i] <= 'Z')
+			swapped_string->value[i] += 'a' - 'A';
+		else if (swapped_string->value[i] >= 'a' && swapped_string->value[i] <= 'z')
+			swapped_string->value[i] += 'A' - 'a';
+	return swapped_string;
 }
 
 EXPORT String *string_copy(String *s)
@@ -244,13 +250,15 @@ EXPORT String *string_copy(String *s)
 
 EXPORT String *string_reverse(String *s)
 {
+	String *reversed_string = string_copy(s);
 	char tmp;
-	for (idx i = 0; i < s->length / 2; i++)
+	for (idx i = 0; i < reversed_string->length / 2; i++)
 	{
-		tmp = s->value[i];
-		s->value[i] = s->value[s->length - i - 1];
-		s->value[s->length - i - 1] = tmp;
+		tmp = reversed_string->value[i];
+		reversed_string->value[i] = reversed_string->value[reversed_string->length - i - 1];
+		reversed_string->value[reversed_string->length - i - 1] = tmp;
 	}
+	return reversed_string;
 }
 
 EXPORT void string_foreach(String *s, void (*fptr)(char, void *), void *args)

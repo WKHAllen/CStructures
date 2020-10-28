@@ -133,6 +133,18 @@ int main(int argc, char **argv)
 	string_free(s30);
 	string_free(s31);
 
+	// test lower, upper, and swap case
+	String *s32 = string_from("Hello, World!");
+	String *s33 = string_lower(s32);
+	assert(strcmp(string_value(s33), "hello, world!") == 0);
+	string_free(s33);
+	String *s34 = string_upper(s32);
+	assert(strcmp(string_value(s34), "HELLO, WORLD!") == 0);
+	string_free(s34);
+	String *s35 = string_swap_case(s32);
+	assert(strcmp(string_value(s35), "hELLO, wORLD!") == 0);
+	string_free(s35);
+
     printf("Successfully passed all tests\n");
     return 0;
 }
